@@ -12,19 +12,18 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-  Future<bool> oturumKontrol()async{
+  Future<bool> oturumKontrol() async {
     var sp = await SharedPreferences.getInstance();
 
-    String spKullaniciAdi=sp.getString("Kullaniciadi")??"kullanici adi yok";
-    String spSifre=sp.getString("sifre")?? "Şifre yok";
-   if (spKullaniciAdi=="admin" && spSifre=="123"){
-    return true;
-
-   }else{
-    return false;
-
-   }
+    String spKullaniciAdi = sp.getString("Kullaniciadi") ?? "kullanici adi yok";
+    String spSifre = sp.getString("sifre") ?? "Şifre yok";
+    if (spKullaniciAdi == "admin" && spSifre == "123") {
+      return true;
+    } else {
+      return false;
+    }
   }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -34,20 +33,21 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:  FutureBuilder<bool>(
+      home: FutureBuilder<bool>(
         future: oturumKontrol(),
-        builder: (context,snapshot){
-          if(snapshot.hasData){
-            if(snapshot.data==true){
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data == true) {
               return const Anasayfa();
-            }else{
-              return  const LoginEkrani(title: 'Giriş Ekranı',);
+            } else {
+              return const LoginEkrani(
+                title: 'Giriş Ekranı',
+              );
             }
-          }else{
+          } else {
             return const CircularProgressIndicator();
           }
         },
-        
       ),
     );
   }
@@ -93,14 +93,14 @@ class _LoginEkraniPageState extends State<LoginEkrani> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-             Padding(
+            Padding(
               padding: const EdgeInsets.all(8.0),
-              child:  TextField(
+              child: TextField(
                 controller: tfKullaniciAdi,
                 decoration: const InputDecoration(hintText: "Kullanici İsmi"),
               ),
             ),
-             Padding(
+            Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
                 obscureText: true,
